@@ -6,7 +6,9 @@
          plot)
 
 (define test-paths
-  '("examples/matrix"))
+  '("examples/matrix"
+    "examples/big-matrix"
+    "examples/funky-town"))
 
 (define-runtime-path results-file "results")
 (define-runtime-path plot-file*   "plot.pdf")
