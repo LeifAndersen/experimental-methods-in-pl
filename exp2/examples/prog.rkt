@@ -3,10 +3,6 @@
 (require (for-syntax syntax/parse
                      racket/syntax))
 
-(define (func x)
-  (for ([i (in-range 10000)])
-    (* i i)))
-
 (define-syntax (f stx)
   (syntax-parse stx
     [(_ 0 t)
