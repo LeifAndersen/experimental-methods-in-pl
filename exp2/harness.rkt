@@ -33,7 +33,7 @@
                    (path->string file-name)))
    #:results-file results-file))
 
-;;(define results (get-post-results results-file))
+;;(define results (get-past-results results-file))
 
 (define results/plot
   (parameterize ([plot-x-ticks no-ticks])
@@ -43,5 +43,6 @@
      #:y-label "normalized time"
      (render-benchmark-alts
       '(jit)
-      results)
+      results
+      #:normalize? #f)
      plot-file*)))
