@@ -28,9 +28,9 @@
      (match jit
        ['jit                (system* (find-exe)      file)]
        ['no-jit             (system* (find-exe) "-j" file)]))
-   #:build (λ (file jit contracts)
+   #:build (λ (file jit)
              (system* (find-exe) "-l" "raco" "make" file))
-   #:clean (λ (file jit contracts)
+   #:clean (λ (file jit)
              (delete-directory/files compiled-dir))
    #:num-trials 50
    #:make-name (λ (path)
