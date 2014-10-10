@@ -18,7 +18,7 @@
 (define-runtime-path results-file "results")
 (define-runtime-path plot-file*   "plot.pdf")
 
-(define-runtime-path compiled-dir "examples/compiled")
+(define-runtime-path compiled-dir "compiled")
 
 (define results
   (run-benchmarks
