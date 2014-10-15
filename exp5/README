@@ -1,0 +1,80 @@
+Viewing Benchmark Results
+-------------------------
+
+Run "show-benchmarks.rkt" to see a summary of all currently recorded
+benchmark results.
+
+Running "run-micro.rkt" or "run-realistic.rkt" changes recorded
+benchmark results. You can clear the "micro-results" and
+"realistic-results" directories to clear all recorded results.
+
+Microbenchmarks
+---------------
+
+To run the microbenchmarks, run the "run-micro.rkt" program.
+It takes an optional command-line argument, which is the
+name of an implementation. With no arguments, it runs all
+implementations, including `racket-hack-jit'. The results
+are written as files to the "micro-results" subdirectory.
+
+To build `racket-hack-jit', apply
+  hack-jit.patch
+to Racket source an build. The patch disables the JIT's specialized
+handling of vector chaperones and impersonators,
+
+Realistic Benchmarks
+--------------------
+
+To run the microbenchmarks, run the "run-realistic.rkt" program,
+which takes an optional benchmark name as an argument, but run
+it only after the following preparations.
+
+You must build many variants of Racket. Apply
+  hack-chap.patch
+and adjust definitions in "src/racket/src/schchap.rkt" to obtain
+executable names (installed somewhere in your PATH) as follows:
+
+ * racket-hack-count : #define COUNT_CHAPS 1
+
+ * racket-hack-skip-co : #define COUNT_CHAPS 1
+                         #define SHORT_CIRCUIT_CHAP_RESULT 1
+
+ * racket-hack-skip-ca : #define COUNT_CHAPS 1
+                         #define SHORT_CIRCUIT_CHAP_RESULT 1
+                         #define SHORT_CIRCUIT_CHAP_PROC_APPLY 1
+
+ * racket-hack-skip-c : #define COUNT_CHAPS 1
+                        #define SHORT_CIRCUIT_CHAP_RESULT 1
+                        #define SHORT_CIRCUIT_CHAP_PROC_APPLY 1
+                        #define SHORT_CIRCUIT_CHAP_PROC 1
+
+ * racket-hack-skip-vca : #define COUNT_CHAPS 1
+                          #define SHORT_CIRCUIT_CHAP_RESULT 1
+                          #define SHORT_CIRCUIT_CHAP_VEC_APPLY 1
+
+ * racket-hack-skip-vc : #define COUNT_CHAPS 1
+                         #define SHORT_CIRCUIT_CHAP_RESULT 1
+                         #define SHORT_CIRCUIT_CHAP_VEC_APPLY 1
+                         #define SHORT_CIRCUIT_CHAP_VEC 1
+
+ * racket-hack-skip-cvc : #define COUNT_CHAPS 1
+                          #define SHORT_CIRCUIT_CHAP_RESULT 1
+                          #define SHORT_CIRCUIT_CHAP_PROC_APPLY 1
+                          #define SHORT_CIRCUIT_CHAP_PROC 1
+                          #define SHORT_CIRCUIT_CHAP_VEC_APPLY 1
+                          #define SHORT_CIRCUIT_CHAP_VEC 1
+
+For the "ode" benchmark, run "ode.rkt" once to install the
+"dwilliams/science.plt" package. Then modify the package's
+"ode-initval.rkt" file as described in "ode.rkt".
+
+For the "keyboard" benchmark, use `raco link keystrokes'
+and then `raco setup -D keystrokes' to install a DrRacket
+tool for automatically timing keystrokes.
+
+The "typecheck" benchmark must be run separately, because you must
+apply the
+   hack-tr.patch
+patch and run `raco setup' to rebuild before running, which enabled
+internal contract checking in the Typed Racket implementation. Revert
+the patch before running any other benchmark.

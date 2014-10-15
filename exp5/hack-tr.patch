@@ -1,0 +1,40 @@
+From bec9b4a8420ba25948ae0641767aaac0bac8164a Mon Sep 17 00:00:00 2001
+From: Matthew Flatt <mflatt@racket-lang.org>
+Date: Tue, 31 Jul 2012 06:57:41 -0600
+Subject: [PATCH] enable internal contracts in Typed Racket
+
+---
+ collects/typed-racket/types/type-table.rkt |    2 +-
+ collects/typed-racket/utils/utils.rkt      |    3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/collects/typed-racket/types/type-table.rkt b/collects/typed-racket/types/type-table.rkt
+index a0b9bf2..db5e46c 100644
+--- a/collects/typed-racket/types/type-table.rkt
++++ b/collects/typed-racket/types/type-table.rkt
+@@ -96,7 +96,7 @@
+     (values (mk 'tautology) (mk 'contradiction) (mk 'neither))))
+ 
+ (provide/cond-contract
+- [add-typeof-expr (syntax? tc-results? . -> . any/c)]
++ [add-typeof-expr (syntax? any/c . -> . any/c)]
+  [type-of (syntax? . -> . tc-results?)]
+  [reset-type-table (-> any/c)]
+  [add-struct-fn! (identifier? StructPE? boolean? . -> . any/c)]
+diff --git a/collects/typed-racket/utils/utils.rkt b/collects/typed-racket/utils/utils.rkt
+index 0301654..3abad6c 100644
+--- a/collects/typed-racket/utils/utils.rkt
++++ b/collects/typed-racket/utils/utils.rkt
+@@ -25,7 +25,8 @@ at least theoretically.
+  rep utils typecheck infer env private types)
+ 
+ (define optimize? (make-parameter #t))
+-(define-for-syntax enable-contracts? #f)
++(define-for-syntax enable-contracts? #t)
++(require racket/contract)
+ 
+ (define-syntax do-contract-req
+   (if enable-contracts?
+-- 
+1.7.4.4
+
