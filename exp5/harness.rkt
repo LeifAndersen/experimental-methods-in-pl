@@ -9,7 +9,6 @@
   '("church-chap-a.rkt"
     "church-chap.rkt"
     "church-contract.rkt"
-    "church-gen.rkt"
     "church-wrap.rkt"
     "church.rkt"))
 
