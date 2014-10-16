@@ -8,9 +8,9 @@
 (define test-paths
   '("examples/prog.rkt"))
 
-(define functions (range 200 1000 200))
-(define f-length  (range 4 20 4))
-(define f-calls   (range 400 2000 400))
+(define functions (range 200 1200 200))
+(define f-length  (range 4 24 4))
+(define f-calls   (range 400 2400 400))
 
 (define-runtime-path results-file "results")
 (define-runtime-path plot-file*   "plot.pdf")
@@ -57,7 +57,7 @@
      #:x-label #f
      #:y-label "Time"
      (render-benchmark-alts
-      '(jit functions f-length f-calls)
+      '(jit 200 4 400)
       results
       #:normalize? #f)
      plot-file*)))
