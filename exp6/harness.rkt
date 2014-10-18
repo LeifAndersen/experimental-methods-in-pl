@@ -16,17 +16,36 @@
 (define results
   (run-benchmarks
    test-paths
-   '((set! fold)
+   '((jit no-jit)
+     (set! fold)
      (primitives functions classes))
-   (λ (file update abstraction)
-     (match `(,update ,abstraction)
-       ['(set! primitives) (system* (find-exe) (format "~a.rkt" file))]
-       ['(fold primitives) (system* (find-exe) (format "~a-fold.rkt" file))]
-       ['(set! functions)  (system* (find-exe) (format "~a-func.rkt" file))]
-       ['(fold functions)  (system* (find-exe) (format "~a-func-fold.rkt" file))]
-       ['(set! classes)    (system* (find-exe) (format "~a-class.rkt" file))]
-       ['(fold classes)    (system* (find-exe) (format "~a-class-fold.rkt" file))]))
-   #:build (λ (file update abstraction)
+   (λ (file jit update abstraction)
+     (match `(,jit ,update ,abstraction)
+       ['(jit set! primitives)
+        (system* (find-exe) (format "~a.rkt" file))]
+       ['(jit fold primitives)
+        (system* (find-exe) (format "~a-fold.rkt" file))]
+       ['(jit set! functions)
+        (system* (find-exe) (format "~a-func.rkt" file))]
+       ['(jit fold functions)
+        (system* (find-exe) (format "~a-func-fold.rkt" file))]
+       ['(jit set! classes)
+        (system* (find-exe) (format "~a-class.rkt" file))]
+       ['(jit fold classes)
+        (system* (find-exe) (format "~a-class-fold.rkt" file))]
+       ['(no-jit set! primitives)
+        (system* (find-exe) "-j" (format "~a.rkt" file))]
+       ['(no-jit fold primitives)
+        (system* (find-exe) "-j" (format "~a-fold.rkt" file))]
+       ['(no-jit set! functions)
+        (system* (find-exe) "-j" (format "~a-func.rkt" file))]
+       ['(no-jit fold functions)
+        (system* (find-exe) "-j" (format "~a-func-fold.rkt" file))]
+       ['(no-jit set! classes)
+        (system* (find-exe) "-j" (format "~a-class.rkt" file))]
+       ['(no-jit fold classes)
+        (system* (find-exe) "-j" (format "~a-class-fold.rkt" file))]))
+   #:build (λ (file jit update abstraction)
              (match `(,update ,abstraction)
                ['(set! primitives) (system* (find-exe)  "-l" "raco" "make"
                                             (format "~a.rkt" file))]
@@ -40,7 +59,7 @@
                                             (format "~a-class.rkt" file))]
                ['(fold classes)    (system* (find-exe) "-l" "raco" "make"
                                             (format "~a-class-fold.rkt" file))]))
-   #:clean (λ (file jit contracts)
+   #:clean (λ (file jit update abstraction)
              (delete-directory/files compiled-dir))
    #:num-trials 50
    #:make-name (λ (path)
@@ -57,7 +76,7 @@
      #:x-label #f
      #:y-label "normalized time"
      (render-benchmark-alts
-      '(set! primitives)
+      '(jit set! primitives)
       results
       #:normalize? #t)
      plot-file*)))
