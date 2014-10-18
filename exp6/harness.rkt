@@ -17,11 +17,13 @@
   (run-benchmarks
    test-paths
    '((set! fold)
-     (primitives classes))
+     (primitives functions classes))
    (λ (file update abstraction)
      (match `(,update ,abstraction)
        ['(set! primitives) (system* (find-exe) (format "~a.rkt" file))]
        ['(fold primitives) (system* (find-exe) (format "~a-fold.rkt" file))]
+       ['(set! functions)  (system* (find-exe) (format "~a-func.rkt" file))]
+       ['(fold functions)  (system* (find-exe) (format "~a-func-fold.rkt" file))]
        ['(set! classes)    (system* (find-exe) (format "~a-class.rkt" file))]
        ['(fold classes)    (system* (find-exe) (format "~a-class-fold.rkt" file))]))
    #:build (λ (file update abstraction)
@@ -30,6 +32,10 @@
                                             (format "~a.rkt" file))]
                ['(fold primitives) (system* (find-exe) "-l" "raco" "make"
                                             (format "~a-fold.rkt" file))]
+               ['(set! functions)  (system* (find-exe)  "-l" "raco" "make"
+                                            (format "~a-func.rkt" file))]
+               ['(fold functions)  (system* (find-exe) "-l" "raco" "make"
+                                            (format "~a-func-fold.rkt" file))]
                ['(set! classes)    (system* (find-exe) "-l" "raco" "make"
                                             (format "~a-class.rkt" file))]
                ['(fold classes)    (system* (find-exe) "-l" "raco" "make"
