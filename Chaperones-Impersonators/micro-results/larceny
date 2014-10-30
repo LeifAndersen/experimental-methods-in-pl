@@ -1,0 +1,1 @@
+#hash((direct . (73 66 66 66)) (indirect . (78 63 63 63)) (church . (700 701 710 708)) (wrapped . (94 80 80 95)) (wrapped+check . (157 163 164 163)) (wrapped+return . (192 191 191 208)) (struct-direct . (804 810 730 728)) (bubble-unsafe . (815 815 814 815)) (bubble . (649 695 694 650)) (church-wrap . (3417 3417 3514 3442)) (struct-unsafe . (799 801 800 800)))
