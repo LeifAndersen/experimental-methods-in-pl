@@ -1,5 +1,7 @@
 #lang racket
 
+(define glob #f)
+
 (time
- (for ([i (in-range 1000000000)])
-   (vector i i)))
+ (for ([i (in-range 100000000)])
+   (set! glob (vector i i))))
