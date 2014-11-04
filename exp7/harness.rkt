@@ -7,7 +7,9 @@
 
 (define test-paths
   '("examples/struct.rkt"
-    "examples/vec.rkt"))
+    "examples/vec.rkt"
+    "examples/cons.rkt"
+    "examples/add.rkt"))
 
 (define-runtime-path results-file "results")
 (define-runtime-path plot-file*   "plot.pdf")
