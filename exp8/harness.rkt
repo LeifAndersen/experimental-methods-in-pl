@@ -17,7 +17,7 @@
 (define results
   (run-benchmarks
    test-paths
-   '((0 5 10))
+   '((0 5 10 15 20))
    (λ (file t)
      (system* (find-exe) file (number->string t)))
    #:build (λ (file t)
