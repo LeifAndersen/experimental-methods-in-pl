@@ -7,7 +7,7 @@
 ;;;                 and Jorge Peixoto de Morais Neto
 ;;; Contributed by Sam Tobin-Hochstadt
 
-(require racket/cmdline racket/require (for-syntax racket/base) (only-in racket/flonum for/flvector)
+(require racket/cmdline racket/require (for-syntax racket/base) (only-in racket/flonum flvector? for/flvector)
          racket/contract
          (filtered-in (λ (name) (regexp-replace #rx"unsafe-" name ""))
                        racket/unsafe/ops))
@@ -22,7 +22,7 @@
                 #"AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA"))
 
 (define/contract (build-table t)
-  (-> (listof (cons/c char? number?)) (cons/c bytes? any/c)) ; flvector? unbound
+  (-> (listof (cons/c char? number?)) (cons/c bytes? flvector?))
   (cons (apply bytes (map (compose char->integer car) t))
         (for/flvector ([i t]) (cdr i))))
 
