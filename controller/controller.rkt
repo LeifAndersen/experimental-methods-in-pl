@@ -7,7 +7,7 @@
          math/statistics)
 
 ;; Number of times to run each argument file
-(define NSAMPLES 50)
+(define NSAMPLES 30)
 ;; Temporary file to store results of each run
 (define TMPFILE "tmp.out")
 ;; Separator for output 'spreadsheet'
