@@ -1,4 +1,4 @@
-+C Avg. Runtime	+C lower CI	+C upper CI
+C Avg. Runtime	C lower CI	C upper CI
 17677	17631.0	17723.0
 -C Avg. Runtime	-C lower CI	-C upper CI
 35	34.0	36.0
