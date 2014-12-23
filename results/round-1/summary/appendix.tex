@@ -1,14 +1,24 @@
 \newpage
 \appendix
 \section*{Appendix A: Benchmark Descriptions}
-\subsubsection*{PE-01}
-\subsubsection*{PE-27}
-\subsubsection*{PE-33}
-\subsubsection*{PE-34}
-\subsubsection*{PE-46}
-\subsubsection*{Zombie}
-\subsubsection*{Snake}
-\subsubsection*{Tetris}
+\subsection*{PE-01~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Overview:] Sum all multiples of 3 and 5 below 1000
+\item[Details:] Our algorithm uses the \mono{racket/stream}~library.
+  First we create streams of all multiples of 3 and of all multiples of 5, then we lazily merge these streams into a one stream without duplicates.
+  From this third stream, we take and sum elements until the next integer in the stream is greater than or equal to 1000.
+  Flat contracts surround two functions: the \mono{main} function which computes our answer and the merging function, which is contracted to accept two streams of positive integers and return a third.
+  We define a stream of positive integers as either an empty stream or a stream with a positive integer as its first element (we do not check or apply contracts to the tail of the stream).
+\end{description}
+
+\subsection*{PE-27~\hrulefill}
+\subsection*{PE-33~\hrulefill}
+\subsection*{PE-34~\hrulefill}
+\subsection*{PE-46~\hrulefill}
+\subsection*{Zombie~\hrulefill}
+\subsection*{Snake~\hrulefill}
+\subsection*{Tetris~\hrulefill}
 
 \begin{landscape}
 \pagenumbering{gobble}
