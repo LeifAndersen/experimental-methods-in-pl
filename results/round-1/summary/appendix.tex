@@ -31,6 +31,19 @@
 \url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/27.rkt}
 
 \subsection*{PE-33~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Overview:]
+  Find the product of the 4 fractions less than 1 in value with two digits in the numerator and denominator that may be ``simplified'' by removing a non-zero digit $x$ from both the numerator and denominator.
+  For example, $\frac{49}{98}$ may be simplified to $\frac{4}{8}$ by removing a 9 from both the numerator and denominator.
+\item[Details:] 
+  Again, this is a na\"ive algorithm.
+  We represent a fraction as a \mono{cons} pair and search the cartesian product of $[10,~99]$ for pairs representing fractions less than 1 where removing a common digit from the string representations of the numerator and denominator gives a fraction with the same quotient (as computed by \mono{/} and \mono{equal?}).
+  To remove digits, we first build a list of digits shared between the numerator and denominator, then iterate over that.
+  Each non-library function is protected by a flat contract, including the \mono{str-member} and \mono{number->list} functions.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/33.rkt}
+
 \subsection*{PE-34~\hrulefill}
 \subsection*{PE-46~\hrulefill}
 \subsection*{Zombie~\hrulefill}
