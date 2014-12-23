@@ -5,14 +5,31 @@
 \begin{description}
 \item[Source:] Project Euler
 \item[Overview:] Sum all multiples of 3 and 5 below 1000
-\item[Details:] Our algorithm uses the \mono{racket/stream}~library.
+\item[Details:] 
+  Our algorithm uses the \mono{racket/stream}~library.
   First we create streams of all multiples of 3 and of all multiples of 5, then we lazily merge these streams into a one stream without duplicates.
   From this third stream, we take and sum elements until the next integer in the stream is greater than or equal to 1000.
   Flat contracts surround two functions: the \mono{main} function which computes our answer and the merging function, which is contracted to accept two streams of positive integers and return a third.
   We define a stream of positive integers as either an empty stream or a stream with a positive integer as its first element (we do not check or apply contracts to the tail of the stream).
 \end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/01.rkt}
 
 \subsection*{PE-27~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Overview:] For quadratics of the form $n^2 + an + b$, where $|a| < 1000$ and $|b| < 1000$, find the product of coefficients $a$ and $b$ for which the expression produces the maximum number of primes for consecutive values of $n$, starting at $n=0$.
+\item[Details:] 
+  We solve this problem na\"ively by trying every combination of coefficients $a$ and $b$.
+  First we use the \mono{for/list} combinator to take the cartesian product of the range $[-1000,~1000]$, then we begin at $n=0$ and check if the value of $n^2 + an + b$ is prime.
+  We repeat this process for increasing values of $n$ until we find a non-prime, at which point we record the value of $n$ and compare it to previous results.
+  After trying all possible pairs of coefficients $(a,b)$, the algorithm returns the pair associated with the largest value of $n$.
+
+  Contracts surround each function in our script; that is, the \mono{main} function, the function to generate \mono{all-coefficients} within a range, the function \mono{check\_all} that searches for the best pair of coefficients, the two functions \mono{count\_primes} and \mono{count\_primes\_aux} that compute a polynomial for increasing values of $n$, and finally the \mono{is\_prime} function.
+  We check if a number is prime by searching a list of the first million prime numbers.
+  The script uses one higher order contract: to compute the polynomial given a value for $n$.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/27.rkt}
+
 \subsection*{PE-33~\hrulefill}
 \subsection*{PE-34~\hrulefill}
 \subsection*{PE-46~\hrulefill}
