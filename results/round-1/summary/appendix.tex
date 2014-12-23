@@ -24,7 +24,7 @@
   We repeat this process for increasing values of $n$ until we find a non-prime, at which point we record the value of $n$ and compare it to previous results.
   After trying all possible pairs of coefficients $(a,b)$, the algorithm returns the pair associated with the largest value of $n$.
 
-  Contracts surround each function in our script; that is, the \mono{main} function, the function to generate \mono{all-coefficients} within a range, the function \mono{check\_all} that searches for the best pair of coefficients, the two functions \mono{count\_primes} and \mono{count\_primes\_aux} that compute a polynomial for increasing values of $n$, and finally the \mono{is\_prime} function.
+  Contracts surround each function in our script; that is, the \mono{main} function, the function to generate \mono{all-coefficients} within a range, the function \mono{check\_all} that searches for the best pair of coefficients, the two functions that compute a polynomial for increasing values of $n$, and finally the \mono{is\_prime} function.
   We check if a number is prime by searching a list of the first million prime numbers.
   The script uses one higher order contract: to compute the polynomial given a value for $n$.
 \end{description}
@@ -45,6 +45,19 @@
 \url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/33.rkt}
 
 \subsection*{PE-34~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Overview:]
+  Find the sum of all numbers that are equal to sum of the factorials of their digits.
+\item[Details:] 
+  Our algorithm is designed to be simple and computationally-heavy rather than clever.
+  For natural numbers less than the arbitrary ceiling of 9000000, we sum those numbers that are equal to the sum of the sum of the factorials of their digits.
+  We get digits by converting a number to a string with \mono{~a}, then iterate over the string's characters.
+  We compute factorial recursively with an accumulator.
+  The factorial function, like the functions to iterate over natural numbers and their digits, is protected by a flat contract.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/34.rkt}
+
 \subsection*{PE-46~\hrulefill}
 \subsection*{Zombie~\hrulefill}
 \subsection*{Snake~\hrulefill}
