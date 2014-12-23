@@ -1,0 +1,28 @@
+\newpage
+\appendix
+\section*{Appendix A: Benchmark Descriptions}
+\subsubsection*{PE-01}
+\subsubsection*{PE-27}
+\subsubsection*{PE-33}
+\subsubsection*{PE-34}
+\subsubsection*{PE-46}
+\subsubsection*{Zombie}
+\subsubsection*{Snake}
+\subsubsection*{Tetris}
+
+\begin{landscape}
+\pagenumbering{gobble}
+\subsection*{Contract, JIT runtime \hfill{} No Contract, JIT runtime}
+
+\hspace{-1.4cm}\csvautotabular{data/contracts-jit-runtime.csv}\septable\csvautotabular{data/nocontracts-jit-runtime.csv}
+
+\newpage
+\subsection*{Contract, No JIT runtime \hfill{} No Contract, No JIT runtime}
+
+\hspace{-1.4cm}\csvautotabular{data/contracts-nojit-runtime.csv}\septable\csvautotabular{data/nocontracts-nojit-runtime.csv}
+
+\newpage
+\subsection*{JIT speedup with Contracts \hfill{} JIT speedup with No Contracts}
+
+\hspace{-1.4cm}\csvautotabular{data/contracts-jit-speedup.csv}\septable\csvautotabular{data/nocontracts-jit-speedup.csv}
+\end{landscape}

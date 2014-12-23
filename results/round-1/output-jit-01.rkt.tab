@@ -1,4 +1,4 @@
-+C Avg. Runtime	+C lower CI	+C upper CI
+C Avg. Runtime	C lower CI	C upper CI
 2	2.0	2.0
 -C Avg. Runtime	-C lower CI	-C upper CI
 2	2	2
