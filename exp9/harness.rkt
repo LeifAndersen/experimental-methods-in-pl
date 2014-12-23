@@ -12,18 +12,24 @@
 (define-runtime-path plot-file*   "plot.pdf")
 
 (define-runtime-path compiled-dir "examples/compiled")
+(define-runtime-path dKanren-dir "examples/dKanren/compiled")
+(define-runtime-path dKanren-off-dir "examples/dKanren-off/compiled")
 
 (define results
   (run-benchmarks
    test-paths
-   '((contracts no-contracts))
+   '((contracts no-contracts no-optimize))
    (λ (file contracts)
      (match contracts
        ['contracts     (system* (find-exe)      (format "~a.rkt"        file))]
-       ['no-contracts  (system* (find-exe)      (format "~a-off.rkt"    file))]))
-   #:build (λ (file contracts)
-             (system* (find-exe) "-l" "raco" "make" (format "~a.rkt" file))
-             (system* (find-exe) "-l" "raco" "make" (format "~a-off.rkt" file)))
+       ['no-contracts  (system* (find-exe)      (format "~a-off.rkt"    file))]
+       ['no-optimize   (system* (find-exe)      (format "~a-off.rkt"    file))]))
+   #:build
+   (λ (file contracts)
+     (match contracts
+      ['no-optimize  (system* (find-exe) "-l" "raco" "make" (format "~a-off.rkt" file))]
+      [else          (system* (find-exe) "-l" "raco" "make" (format "~a-off.rkt" file))])
+     (system* (find-exe) "-l" "raco" "make" (format "~a.rkt" file)))
    #:clean (λ (file contracts)
              (delete-directory/files compiled-dir))
    #:num-trials 50
