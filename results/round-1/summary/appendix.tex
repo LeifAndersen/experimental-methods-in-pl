@@ -59,6 +59,19 @@
 \url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/34.rkt}
 
 \subsection*{PE-46~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Overview:]
+  Find the smallest odd composite number that cannot be written as the sum of a prime number and twice a square number.
+\item[Details:] 
+  For odd numbers $n$ between 9 and 9,999, the algorithm finds all prime numbers $p$ less than $n$ and checks if the difference $n - p$ is square.
+  Output is the \mono{for/or} disjunction over all valid combinations of odd composites and primes.
+  We pre-compute prime numbers below 10,000 via the Sieve of Eratosthenes and save them in a stream.
+  The functions to generate prime numbers and to try decomposing odd composites into a prime and a square are guarded by contracts.
+  All contracts are flat except for the contract on \mono{stream-filter}, the function used to get primes below our current $n$.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/46.rkt}
+
 \subsection*{Zombie~\hrulefill}
 \subsection*{Snake~\hrulefill}
 \subsection*{Tetris~\hrulefill}
