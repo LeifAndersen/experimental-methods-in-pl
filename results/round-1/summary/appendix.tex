@@ -68,9 +68,9 @@
 \subsection*{Zombie~\hrulefill}
 \begin{description}
 \item[Source:] Soft Contracts
+\item[Lines of code:] 313
 \item[Overview:]
   Runs a pre-defined set of moves on a game of tag.
-\item[Lines of code:] 313
 \item[Details:]
   Zombie is written in object-oriented style and uses a few higher-order contracts to guarantee function arguments have a certain object structure.
   These are \mono{posn/c}, \mono{player/c}, \mono{zombie/c}, \mono{horde/c}, \mono{zombies/c}, and \mono{world/c}.
@@ -103,6 +103,44 @@
   These are again flat contracts, but having many small modules leads to a high contracts overhead.
 \end{description}
 \url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/soft-contract/tetris.rkt}
+
+\subsection*{Matrix~\hrulefill}
+\begin{description}
+\item[Source:] Racket Documentation
+\item[Lines of code:] 8
+\item[Overview:]
+  Multiplies two randomly generated $20x20$ matrices together.
+\item[Details:]
+  Racket's matrix library is typed, while this multiplication is untyped.
+  Multiplying the two matrices generates typed/untyped boundary contracts.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/exp1/examples/matrix.rkt}
+
+\subsection*{Funky~Town~\hrulefill}
+\begin{description}
+\item[Source:] Soft Contracts
+\item[Lines of code:] 446
+\item[Overview:]
+  Generates music for Lipp's Funky Town:\\
+  \url{https://www.youtube.com/watch?v=xF77Y1JLScc}
+\item[Details:]
+  Funky~Town is a script that uses Racket's Synth library to generate a synthesized version of Funky~Town.
+  While the synth library is untyped, it uses Racket's math library, which is typed.
+  As with Matrix, Funky~Town generates contracts at the typed/untyped boundaries.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/exp1/examples/funky-town.rkt}
+
+\subsection*{Type~Boundary~\hrulefill}
+\begin{description}
+\item[Source:] Max New
+\item[Lines of code:] 53
+\item[Overview:]
+  Recursively calls typed and untyped code.
+\item[Details:]
+  Type~Boundary provides two modules, one typed and one untyped, that are mutually recursive
+  Like Matrix and Funky~Town, Type~Boundary will generate contracts at typed/untyped boundaries.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/recursion/typed-boundary-bench.rkt}
 
 \begin{landscape}
 \pagenumbering{gobble}
