@@ -19,10 +19,14 @@ Additionally, our solution of turning off contracts by replacing them with the t
 We still assume the overhead of creating the contract we eventually discard, and we likely incur a level of indirection through the \mono{any/c} contract, even though it accepts its argument instantly.\footnote{We say `likely' because we believe Racket has some optimizations to reduce contract checks. We do not know the exact nature of these optimizations, but think they might include erasing \mono{any/c} checks.}
 In the future, we should investigate alternatives for disabling contracts and measure the difficulty of using option contracts~\cite{option-contracts} from the start.
 
+\subsection{Contract Style}
+
+
 \subsection{TODO}
 
 Measure steady-state VM performance.
 
 Run more projects
 - contract-benchmarks
-- 
+- shootout
+- acquire

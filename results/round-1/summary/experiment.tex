@@ -6,7 +6,7 @@ We disabled the JIT using the Racket command-line flag \mono{--no-jit} and disab
 See \sect{disabling-contracts} for further discussion on how we disabled contracts and the difficulties we faced, but for the moment note that we still incur the cost of making contracts (before they are discarded) and potentially incur a level of indirection for the \mono{any/c} calls even though they automatically accept their argument.
 
 The eight programs we collected data for are taken from Project Euler~\cite{project-euler} and the artifact by Nyugen et~al. on soft contracts~\cite{soft-contracts}.
-We wrote the 5 Project Euler (PE) solutions ourselves and added contracts to individual functions exactly how type signatures would guard the functions statically.
+We wrote the 4 Project Euler (PE) solutions ourselves and added contracts to individual functions exactly how type signatures would guard the functions statically.
 These solutions were picked arbitrarily and are not solved in any particular way.\footnote{In fact, a more experienced Racketeer might cringe at our solutions.}
 The 3 games we took from the soft contracts repository~\cite{soft-contracts-repo} were implemented as a collection of modules.
 Contracts protect module boundaries, but there are no contracts checks within any single module.
@@ -16,11 +16,26 @@ To address potential outliers, we ran each benchmark 30 times on each configurat
 Note that we started a new Racket VM for each of the 30 runs; our experiment does not measure differences between startup and steady-state performance.
 
 \subsection{Results}
+Figures~\ref{runtimes} and~\ref{speedups} document our results.
+We discuss these figures in turn.
 
-\newpage
-\input{fig-trials}
-\newpage
 \input{fig-runtimes}
-
-\newpage
 \input{fig-speedups}
+
+\fig{runtimes} shows the aggregate runtime for each experiment on each of the 4 configurations, normalized to the ``Contracts + JIT'' running time.
+The bars additionally include their 95\% confidence interval.
+The confidence intervals suggest minimal variation among the 30 trials we collected data for.
+This suggests that our benchmarks are ``well-behaved'' in the sense that both contract overhead and JIT optimizations apply uniformly across trials, and that we are justified in extrapolating our data to more general settings.
+
+From this chart, we conclude that contracts are responsible for at least an order of magnitude slowdown under normal execution.
+With the JIT disabled, the runnning-time effects of contracts are generally less severe but still significant.
+We also conclude that the JIT is responsible for large speedups regardless of whether contracts are on or off.
+Regarding the individual projects, we first note that our solution to Project Euler \#46 apparantly contains much redundant, or at least ``hot'', computation.
+Snake and Tetris, of the soft contracts repo, also finish very quickly with contracts disabled.
+This suggests that these benchmarks were divided into contracted modules too agressively, and may not be indicative of the contract overhead one might see naturally.
+
+\fig{speedups} shows the percent difference in runtimes without the JIT versus those with the JIT.
+The two charts in this figure measure the increases with and without contracts, respectively.
+Each chart displays the precise data for each of the 30 trials, so we can see the variation between measurements on an absolute scale.
+
+
