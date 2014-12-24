@@ -6,6 +6,7 @@
 \subsection*{PE-27~\hrulefill}
 \begin{description}
 \item[Source:] Project Euler
+\item[Lines of code:] 56
 \item[Overview:] For quadratics of the form $n^2 + an + b$, where $|a| < 1000$ and $|b| < 1000$, find the product of coefficients $a$ and $b$ for which the expression produces the maximum number of primes for consecutive values of $n$, starting at $n=0$.
 \item[Details:] 
   We solve this problem na\"ively by trying every combination of coefficients $a$ and $b$.
@@ -22,6 +23,7 @@
 \subsection*{PE-33~\hrulefill}
 \begin{description}
 \item[Source:] Project Euler
+\item[Lines of code:] 83
 \item[Overview:]
   Find the product of the 4 fractions less than 1 in value with two digits in the numerator and denominator that may be ``simplified'' by removing a non-zero digit $x$ from both the numerator and denominator.
   For example, $\frac{49}{98}$ may be simplified to $\frac{4}{8}$ by removing a 9 from both the numerator and denominator.
@@ -36,6 +38,7 @@
 \subsection*{PE-34~\hrulefill}
 \begin{description}
 \item[Source:] Project Euler
+\item[Lines of code:] 30
 \item[Overview:]
   Find the sum of all numbers that are equal to sum of the factorials of their digits.
 \item[Details:] 
@@ -50,6 +53,7 @@
 \subsection*{PE-46~\hrulefill}
 \begin{description}
 \item[Source:] Project Euler
+\item[Lines of code:] 40
 \item[Overview:]
   Find the smallest odd composite number that cannot be written as the sum of a prime number and twice a square number.
 \item[Details:] 
@@ -62,11 +66,11 @@
 \url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/46.rkt}
 
 \subsection*{Zombie~\hrulefill}
-%% 313 LOC, ??? checks
 \begin{description}
 \item[Source:] Soft Contracts
 \item[Overview:]
   Runs a pre-defined set of moves on a game of tag.
+\item[Lines of code:] 313
 \item[Details:]
   Zombie is written in object-oriented style and uses a few higher-order contracts to guarantee function arguments have a certain object structure.
   These are \mono{posn/c}, \mono{player/c}, \mono{zombie/c}, \mono{horde/c}, \mono{zombies/c}, and \mono{world/c}.
@@ -75,9 +79,9 @@
 \url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/soft-contract/zombie.rkt}
 
 \subsection*{Snake~\hrulefill}
-%% 312 LOC
 \begin{description}
 \item[Source:] Soft Contracts
+\item[Lines of code:] 312
 \item[Overview:]
   Runs a pre-defined set of moves navigating a snake across a board of death traps and apples.
 \item[Details:] 
@@ -88,9 +92,9 @@
 \url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/soft-contract/snake.rkt}
 
 \subsection*{Tetris~\hrulefill}
-%% 433 LOC
 \begin{description}
 \item[Source:] Soft Contracts
+\item[Lines of code:] 433
 \item[Overview:]
   Runs a pre-defined set of moves on a game of Tetris.
 \item[Details:] 
@@ -102,15 +106,25 @@
 
 \begin{landscape}
 \pagenumbering{gobble}
-\subsection*{Contract, JIT runtime \hfill{} No Contract, JIT runtime}
 
-\hspace{-1.4cm}\csvautotabular{data/contracts-jit-runtime.csv}\septable\csvautotabular{data/nocontracts-jit-runtime.csv}
+\begin{figure}[htb]
+{\large \textbf{Contract, JIT runtime \hspace{6cm} No Contract, JIT runtime}}
+\vspace{0.1cm}
 
-\subsection*{Contract, No JIT runtime \hfill{} No Contract, No JIT runtime}
+\hspace{-1.2cm}\csvautotabular{data/contracts-jit-runtime.csv}\septable\csvautotabular{data/nocontracts-jit-runtime.csv}
+\end{figure}
 
-\hspace{-1.4cm}\csvautotabular{data/contracts-nojit-runtime.csv}\septable\csvautotabular{data/nocontracts-nojit-runtime.csv}
+\begin{figure}[htb]
+{\large \textbf{Contract, No JIT runtime \hspace{5.2cm} No Contract, No JIT runtime}}
+\vspace{0.1cm}
 
-\subsection*{JIT speedup with Contracts \hfill{} JIT speedup with No Contracts}
+\hspace{-1.2cm}\csvautotabular{data/contracts-nojit-runtime.csv}\septable\csvautotabular{data/nocontracts-nojit-runtime.csv}
+\end{figure}
 
-\hspace{-1.4cm}\csvautotabular{data/contracts-jit-speedup.csv}\septable\csvautotabular{data/nocontracts-jit-speedup.csv}
+\begin{figure}[htb]
+{\large \textbf{JIT speedup with Contracts \hspace{5cm} JIT speedup with No Contracts}}
+\vspace{0.1cm}
+
+\hspace{-1.2cm}\csvautotabular{data/contracts-jit-speedup.csv}\septable\csvautotabular{data/nocontracts-jit-speedup.csv}
+\end{figure}
 \end{landscape}
