@@ -2,4 +2,19 @@
 \section{Discussion}
 \label{discussion}
 
-TODO
+\subsection{Disabling Contracts}
+\label{disabling-contracts}
+
+The biggest challenge this semester was figuring out how to turn off contracts.
+We learned that contracts are not applied and created uniformly; there are different channels for user-defined contracts, built-in contracts, typed racket contracts, and contracts provided at module boundaries.
+
+Our first reasonable attempt at disabling contracts was to modify calls to \mono{apply-contract} within a macro for building contracts~\cite{no-contracts1}.
+Unfortunately it only disabled user-defined contracts.
+Later we replaced typed racket contracts~\cite{no-contracts2} and finally module-boundary contracts~\cite{no-contracts3} with trivial checks.
+
+We are grateful to the Racket developers for helping us achieve what we have, but we are still concerned we may be missing significant contract checks.
+As is, we intentionally did not remove the contract checks for primitive operations like \mono{+} because they are implemented manually in the C source.
+
+Additionally, our solution of turning off contracts by replacing them with the trivial \mono{any/c} contract entails a few tradeoffs.
+We still assume the overhead of creating the contract we eventually discard, and we likely incur a level of indirection through the \mono{any/c} contract, even though it accepts its argument instantly.\footnote{We say `likely' because we believe Racket has some optimizations to reduce contract checks. We do not know the exact nature of these optimizations, but think they might include erasing \mono{any/c} checks.}
+In the future, we should investigate alternatives for disabling contracts and measure the difficulty of using option contracts~\cite{option-contracts} from the start.
