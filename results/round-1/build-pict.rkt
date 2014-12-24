@@ -77,20 +77,24 @@
 (define zombie (build-res "run-zombie"))
 (define mat (build-res "matrix"))
 (define funkytown (build-res "funky-town"))
+(define boundary (build-res "typed-boundary-bench"))
 
-(parameterize ([plot-x-ticks no-ticks])
+(parameterize ([plot-x-ticks no-ticks]
+               #;[plot-x-tick-label-anchor  'top-right]
+               #;[plot-x-tick-label-angle   30])
   (plot-file
    #:x-label ""
    #:y-label "Time (Normalized to JIT+Contracts)"
    #:width (* 2 (plot-width))
    (append
-    (plot-res 0 pe27 "Project Euler #27" #t)
-    (plot-res 1 pe33 "Project Euler #33" #f)
-    (plot-res 2 pe34 "Project Euler #34" #f)
-    (plot-res 3 pe46 "Project Euler #46" #f)
+    (plot-res 0 pe27 "Euler #27" #t)
+    (plot-res 1 pe33 "Euler #33" #f)
+    (plot-res 2 pe34 "Euler #34" #f)
+    (plot-res 3 pe46 "Euler #46" #f)
     (plot-res 4 snake "Snake" #f)
     (plot-res 5 tetris "Tetris" #f)
     (plot-res 6 zombie "Zombie" #f)
     (plot-res 7 mat "Matrix" #f)
-    (plot-res 8 funkytown "Funky Town" #f))
+    (plot-res 8 funkytown "Funky Town" #f)
+    (plot-res 9 boundary "Boundary" #f))
    "results.png"))
