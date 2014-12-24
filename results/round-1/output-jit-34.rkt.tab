@@ -1,9 +1,3 @@
-C Avg. Runtime	C lower CI	C upper CI
-112641	111693.0	113588.0
--C Avg. Runtime	-C lower CI	-C upper CI
-17513	17300.0	17726.0
-
-Trail	C+ Runtime	C- Runtime
 0	111275	17025
 1	114394	18171
 2	111715	17445

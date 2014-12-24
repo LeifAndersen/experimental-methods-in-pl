@@ -27,11 +27,16 @@
    #:build
    (λ (file contracts)
      (match contracts
-      ['no-optimize  (system* (find-exe) "-l" "raco" "make" (format "~a-off.rkt" file))]
-      [else          (system* (find-exe) "-l" "raco" "make" (format "~a-off.rkt" file))])
-     (system* (find-exe) "-l" "raco" "make" (format "~a.rkt" file)))
-   #:clean (λ (file contracts)
-             (delete-directory/files compiled-dir))
+       ['contracts (system* (find-exe) "-l" "raco" "make" (format "~a.rkt" file))]
+       ['no-optimize  (system* (find-exe) "-l" "raco" "make" "--disable-inline" (format "~a-off.rkt" file))]
+       ['no-contracts (system* (find-exe) "-l" "raco" "make" (format "~a-off.rkt" file))]))
+   #:clean
+   (λ (file contracts)
+     (delete-directory/files compiled-dir)
+     (match contracts
+       ['contracts (delete-directory/files dKanren-dir)]
+       ['no-contracts (delete-directory/files dKanren-off-dir)]
+       ['no-optimize (delete-directory/files dKanren-off-dir)]))
    #:num-trials 50
    #:make-name (λ (path)
                  (let-values ([(path-name file-name root?) (split-path path)])

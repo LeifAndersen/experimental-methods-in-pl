@@ -55,7 +55,18 @@
          `((,(+ off 0.5) ,jca ,jcs)
            (,(+ off 1.5) ,jna ,jns)
            (,(+ off 2.5) ,nja ,njs)
-           (,(+ off 3.5) ,nna ,nns)))))
+           (,(+ off 3.5) ,nna ,nns)))
+        (points
+         #:sym 'dot
+         (append
+          (for/list ([i (second m)])
+            (list (+ off 0.5) (/ i avg)))
+          (for/list ([i (third m)])
+            (list (+ off 1.5) (/ i avg)))
+          (for/list ([i (fourth m)])
+            (list (+ off 2.5) (/ i avg)))
+          (for/list ([i (fifth m)])
+            (list (+ off 3.5) (/ i avg)))))))
 
 (define pe27 (build-res "27"))
 (define pe33 (build-res "33"))
@@ -64,18 +75,26 @@
 (define snake (build-res "run-snake"))
 (define tetris (build-res "run-tetris"))
 (define zombie (build-res "run-zombie"))
+(define mat (build-res "matrix"))
+(define funkytown (build-res "funky-town"))
+(define boundary (build-res "typed-boundary-bench"))
 
-(parameterize ([plot-x-ticks no-ticks])
+(parameterize ([plot-x-ticks no-ticks]
+               #;[plot-x-tick-label-anchor  'top-right]
+               #;[plot-x-tick-label-angle   30])
   (plot-file
    #:x-label ""
    #:y-label "Time (Normalized to JIT+Contracts)"
    #:width (* 2 (plot-width))
    (append
-    (plot-res 0 pe27 "Project Euler #27" #t)
-    (plot-res 1 pe33 "Project Euler #33" #f)
-    (plot-res 2 pe34 "Project Euler #34" #f)
-    (plot-res 3 pe46 "Project Euler #46" #f)
+    (plot-res 0 pe27 "Euler #27" #t)
+    (plot-res 1 pe33 "Euler #33" #f)
+    (plot-res 2 pe34 "Euler #34" #f)
+    (plot-res 3 pe46 "Euler #46" #f)
     (plot-res 4 snake "Snake" #f)
     (plot-res 5 tetris "Tetris" #f)
-    (plot-res 6 zombie "Zombie" #f))
+    (plot-res 6 zombie "Zombie" #f)
+    (plot-res 7 mat "Matrix" #f)
+    (plot-res 8 funkytown "Funky Town" #f)
+    (plot-res 9 boundary "Boundary" #f))
    "results.png"))
