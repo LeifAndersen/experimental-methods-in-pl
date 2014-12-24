@@ -10,3 +10,4 @@ compiled/
 *\.log
 *\.out
 *\.pdf
+*.gz
