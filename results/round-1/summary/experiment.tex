@@ -20,7 +20,6 @@ Figures~\ref{runtimes} and~\ref{speedups} document our results.
 We discuss these figures in turn.
 
 \input{fig-runtimes}
-\input{fig-speedups}
 
 \fig{runtimes} shows the aggregate runtime for each experiment on each of the 4 configurations, normalized to the ``Contracts + JIT'' running time.
 The bars additionally include their 95\% confidence interval.
@@ -33,6 +32,9 @@ We also conclude that the JIT is responsible for large speedups regardless of wh
 Regarding the individual projects, we first note that our solution to Project Euler \#46 apparantly contains much redundant, or at least ``hot'', computation.
 Snake and Tetris, of the soft contracts repo, also finish very quickly with contracts disabled.
 This suggests that these benchmarks were divided into contracted modules too agressively, and may not be indicative of the contract overhead one might see naturally.
+
+\newpage
+\input{fig-speedups}
 
 \fig{speedups} shows the percent difference in runtimes without the JIT versus those with the JIT.
 The two charts in this figure measure the increases with and without contracts, respectively.
