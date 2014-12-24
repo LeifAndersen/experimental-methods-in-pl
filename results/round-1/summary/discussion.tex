@@ -20,18 +20,30 @@ Additionally, our solution of turning off contracts by replacing them with the t
 We still assume the overhead of creating the contract we eventually discard, and we likely incur a level of indirection through the \mono{any/c} contract, even though it accepts its argument instantly.\footnote{We say `likely' because we believe Racket has some optimizations to reduce contract checks. We do not know the exact nature of these optimizations, but think they might include erasing \mono{any/c} checks.}
 In the future, we should investigate alternatives for disabling contracts and measure the difficulty of using option contracts~\cite{option-contracts} from the start.
 
-\subsection{Contract Style}
+\subsection{Types of Boundaries}
 
+The contracts we used in our Project Euler benchmarks are quite different in style from the soft contracts artifact.
+Indeed, conversation with Matthias Felleisen revealed that Racket's \mono{define/contract} is rarely used by ``experienced'' programmers.
+The opinion is that contracts are too expensive for functions to check, so instead contracts should only protect boundaries between ``friendly code'' and ``the outside world''.
+This is exactly the object-oriented viewpoint, that internal functions may break invariants that outsiders cannot.
 
-\subsection{TODO}
+At any rate, it seems our style of using contracts differs from the norm.
+From this we draw two conclusions: first, we should test larger programs with more boundaries to approximate contracts' practical use.
+Second, we should measure the cost of \mono{define/contract} against \mono{provide/contract} to determine just how much more expensive the former is.
 
-Measure steady-state VM performance.
+\subsection{Objects vs. Functions}
 
-Run more projects
-- contract-benchmarks
-- shootout
-- acquire
+The Zombie game was implemented in an object-oriented style and saw markedly less improvement by the JIT than other programs.
+We should determine whether this holds true for Racket classes in general\textemdash that the JIT cannot optimize object-oriented programs as effectively regardless of whether contracts are on or off.
+Asumu Takikawa and Dan Feltey are already exploring the dynamics of contracts and objects, so we should ask what they have learned so far.
 
-oo style
+\subsection{Comparing Contracts}
+It is possible that some types of contracts, or some styles of contract application, are more amenable to the JIT than others.
+So far we have seen the JIT does better on a program without contracts, but it would be interesting to find a compelling example where adding contracts improves the number of optimizations the JIT can perform.
 
-some contracts better to JIT than others?
+\subsection{More Experiments}
+
+Now that we have an experimental setup in place and have analyzed some preliminary data, we should run and record data for more programs.
+Immediately, we can run the \href{https://github.com/stamourv/contract-benchmarks}{contract-benchmarks} examples, an implementation of the game \href{https://github.com/LeifAndersen/experimental-methods-in-pl/tree/master/Acquire}{Acquire}, and 27 of the \href{https://github.com/LeifAndersen/experimental-methods-in-pl/tree/master/shootout}{shootout benchmarks}.
+The next obvious step is to explore the Racket package archives for larger programs with contracts.
+
