@@ -45,7 +45,6 @@ So far we have seen the JIT does better on a program without contracts, but it w
 \subsection{More Experiments}
 
 Now that we have an experimental setup in place and have analyzed some preliminary data, we should run and record data for more programs.
-Immediately, we can run the \href{https://github.com/stamourv/contract-benchmarks}{contract-benchmarks} examples, an implementation of the game \href{https://github.com/LeifAndersen/experimental-methods-in-pl/tree/master/Acquire}{Acquire}, and 27 of the \href{https://github.com/LeifAndersen/experimental-methods-in-pl/tree/master/shootout}{shootout benchmarks}.
 The next obvious step is to explore the Racket package archives for larger programs with contracts.
 We should also test JIT performance after the VM has reached a steady state, as opposed to our strategy of starting a new VM for each trial.
 

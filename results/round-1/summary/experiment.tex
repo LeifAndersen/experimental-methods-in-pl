@@ -4,13 +4,15 @@
 Our experimental data consists of running small programs under 4 different configurations: with contracts and the JIT, with no contracts and the JIT, with contracts and no JIT, and finally with no contracts and no JIT.
 We disabled the JIT using the Racket command-line flag \mono{--no-jit} and disabled contracts by editing the \mono{racket/contract} source code\textemdash wherever contracts were applied, we replaced the actual contract with a trivial \mono{any/c} contract.\footnote{See \sect{disabling-contracts} for a more on our strategy for disabling contracts.}
 
-The seven programs benchmarked are taken from Project Euler~\cite{project-euler} and the artifact by Nyugen et~al. on soft contracts~\cite{soft-contracts}.
+Most of the programs we benchmarked are our own, but we include three benchmarks from Nyugen et~al.'s work on soft contracts~\cite{soft-contracts} and one benchmark from the Strickland et~al.'s work on chaperone contracts~\cite{chaps}.
 We wrote the four Project Euler (PE) solutions ourselves and later added contracts to protect individual functions exactly how type signatures would guard the functions in a statically-typed language.\footnote{We chose these 4 problems arbitrarily.}
 The three games we took from the soft contracts repository~\cite{soft-contracts-repo} were implemented as a collection of modules.
 Contracts only protect module boundaries, not functions within a module.
 Incidentally, this style of using contracts on modules rather than functions is the preferred Racket way; see \sect{types-of-boundaries}.
+Funkytown is from the chaperones paper, but relies heavily on the \mono{racket/math} libraries.
+Lastly, Matrix and Boundary are our own stress tests.
 
-We ran each of these 8 benchmark programs on a modern desktop using Racket version 6.1.1.5 and collected the CPU time taken for the run.\footnote{CPU time was obtained by calling Racket's built-in \mono{time} function.}
+We ran each of these benchmark programs on a modern desktop using Racket version 6.1.1.5 and collected the CPU time taken for the run.\footnote{CPU time was obtained by calling Racket's built-in \mono{time} function.}
 To address potential outliers, we ran each benchmark 30 times on each configuration of Contracts and JIT.
 Note that we started a new Racket VM for each of the 30 runs; our experiment does not measure differences between startup and steady-state performance.
 
@@ -28,9 +30,10 @@ This suggests that our benchmarks are ``well-behaved'' in the sense that both co
 From this chart, we conclude that contracts are responsible for at least an order of magnitude slowdown under normal execution.
 With the JIT disabled, the runnning-time effects of contracts are generally less severe but still significant.
 We also conclude that the JIT is responsible for large speedups regardless of whether contracts are on or off.
-Regarding the individual projects, we first note that our solution to Project Euler \#46 benefits tremendously from the JIT.\footnote{Indeed, the appendix notes that this benchmark does a lot of redundant computation\textemdash it computes the first 10,000 primes using the Sieve of Eratosthenes.}
-Snake and Tetris, from the soft contracts repo, finish very quickly with contracts disabled.
-However these benchmarks were divided into quite small modules, and may not be indicative of the contract overhead one might see naturally.
+Regarding the individual projects, we first note that Project Euler \#46 and Matrix benefit tremendously from the JIT.
+This makes sense, as both do a lot of redundant computation; see the Appendix for details.
+More interestingly, Snake, Tetris, Funkytown, and Boundary finish very quickly with contracts disabled and have similar slowdowns in all cases.
+All these benchmarks heavily used contracts on module boundaries; from this, we hypothesis that the JIT is significantly less effective at optimizing module-boundary contracts.
 
 \newpage
 \input{fig-speedups}
@@ -39,17 +42,14 @@ However these benchmarks were divided into quite small modules, and may not be i
 The two charts displayed vertically in this figure measure the increases with and without contracts, respectively.
 Each chart gives the precise data for each of the 30 trials.
 
-Besides \#46, all the Project Euler questions see a large, consistent speedup after removing contracts.
+Most benchmarks consistently see better JIT performance after removing contracts.
 Thus we conclude that the contracts did hinder the JIT's ability to optimize (despite offering more ``redundant computation'' to potentially reduce).
-The anomalous program, Problem 46, is consistently optimized.
-This makes sense considering the amount of redundant computation it contains.
 
-The soft contracts benchmarks are a little more interesting.
-Tetris is similar to our Project Euler benchmarks in that it clearly optimizes better without contracts.
-On the other hand Zombie, the benchmark using the most higher-order contracts, is optimized relatively poorly regardless of whether contracts are erased.
+The outliers are the games Zombie and Snake.
+Zombie, the benchmark using the most higher-order contracts, is optimized relatively poorly regardless of whether contracts are erased.
 In the case of no contracts these optimizations take effect more unpredictably.
 These results suggest that an object-oriented style of programming is less amenable to the Racket JIT's optimizations.
-Finally, Snake has the strangest results.
+Snake has the strangest results.
 On average, the JIT optimizes more with contracts disabled; however, the magnitude of these optimizations is more variable.
 We do not have a good explanation for this result.
 Intuitively, Snake should behave like Tetris as both use a random number generator for small game components (spawning new items / pieces) and are coded as traditional functional programs.
