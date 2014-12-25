@@ -42,6 +42,8 @@ All these benchmarks heavily used contracts on module boundaries; from this, we 
 The two charts displayed vertically in this figure measure the increases with and without contracts, respectively.
 Each chart gives the precise data for each of the 30 trials.
 
+\newpage
+
 Most benchmarks consistently see better JIT performance after removing contracts.
 Thus we conclude that the contracts did hinder the JIT's ability to optimize (despite offering more ``redundant computation'' to potentially reduce).
 

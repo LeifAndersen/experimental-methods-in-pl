@@ -142,27 +142,47 @@
 \end{description}
 \url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/recursion/typed-boundary-bench.rkt}
 
-% \begin{landscape}
-% \pagenumbering{gobble}
+\begin{landscape}
+\pagenumbering{gobble}
 
-% \begin{figure}[htb]
-% {\large \textbf{Contract, JIT runtime \hspace{6cm} No Contract, JIT runtime}}
-% \vspace{0.1cm}
+\begin{figure}[htb]
+{\large \textbf{Contract, JIT runtime}}
+\vspace{0.1cm}
 
-% \hspace{-1.2cm}\csvautotabular{data/contracts-jit-runtime.csv}\septable\csvautotabular{data/nocontracts-jit-runtime.csv}
-% \end{figure}
+\hspace{-1.2cm}\csvautotabular{data/contracts-jit-runtime.csv}
+\end{figure}
 
-% \begin{figure}[htb]
-% {\large \textbf{Contract, No JIT runtime \hspace{5.2cm} No Contract, No JIT runtime}}
-% \vspace{0.1cm}
+\begin{figure}[htb]
+{\large \textbf{No Contract, JIT runtime}}
+\vspace{0.1cm}
 
-% \hspace{-1.2cm}\csvautotabular{data/contracts-nojit-runtime.csv}\septable\csvautotabular{data/nocontracts-nojit-runtime.csv}
-% \end{figure}
+\hspace{-1.2cm}\csvautotabular{data/nocontracts-jit-runtime.csv}
+\end{figure}
 
-% \begin{figure}[htb]
-% {\large \textbf{JIT speedup with Contracts \hspace{5cm} JIT speedup with No Contracts}}
-% \vspace{0.1cm}
+\begin{figure}[htb]
+{\large \textbf{Contract, No JIT runtime}}
+\vspace{0.1cm}
 
-% \hspace{-1.2cm}\csvautotabular{data/contracts-jit-speedup.csv}\septable\csvautotabular{data/nocontracts-jit-speedup.csv}
-% \end{figure}
-% \end{landscape}
+\hspace{-1.2cm}\csvautotabular{data/contracts-nojit-runtime.csv}
+\end{figure}
+
+\begin{figure}[htb]
+{\large \textbf{No Contract, No JIT runtime}}
+\vspace{0.1cm}
+
+\hspace{-1.2cm}\csvautotabular{data/nocontracts-nojit-runtime.csv}
+\end{figure}
+
+\begin{figure}[htb]
+{\large \textbf{JIT speedup with Contracts}}
+
+\hspace{-2cm}\csvautotabular{data/contracts-jit-speedup.csv}
+\end{figure}
+
+\begin{figure}[htb]
+{\large \textbf{JIT speedup with No Contracts}}
+\vspace{0.1cm}
+
+\hspace{-2cm}\csvautotabular{data/nocontracts-jit-speedup.csv}
+\end{figure}
+\end{landscape}
