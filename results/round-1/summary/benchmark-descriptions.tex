@@ -1,0 +1,140 @@
+\section{Benchmark Descriptions}
+
+\subsection*{PE-27~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Lines of code:] 56
+\item[Overview:] For quadratics of the form $n^2 + an + b$, where $|a| < 1000$ and $|b| < 1000$, find the product of coefficients $a$ and $b$ for which the expression produces the maximum number of primes for consecutive values of $n$, starting at $n=0$.
+\item[Details:] 
+  We solve this problem na\"ively by trying every combination of coefficients $a$ and $b$.
+  First we use the \mono{for/list} combinator to take the cartesian product of the range $[-1000,~1000]$, then we begin at $n=0$ and check if the value of $n^2 + an + b$ is prime.
+  We repeat this process for increasing values of $n$ until we find a non-prime, at which point we record the value of $n$ and compare it to previous results.
+  After trying all possible pairs of coefficients $(a,b)$, the algorithm returns the pair associated with the largest value of $n$.
+
+  Contracts surround each function in our script; that is, the \mono{main} function, the function to generate \mono{all-coefficients} within a range, the function \mono{check\_all} that searches for the best pair of coefficients, the two functions that compute a polynomial for increasing values of $n$, and finally the \mono{is\_prime} function.
+  We check if a number is prime by searching a list of the first million prime numbers.
+  The script uses one higher order contract: to compute the polynomial given a value for $n$.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/27.rkt}
+
+\subsection*{PE-33~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Lines of code:] 83
+\item[Overview:]
+  Find the product of the 4 fractions less than 1 in value with two digits in the numerator and denominator that may be ``simplified'' by removing a non-zero digit $x$ from both the numerator and denominator.
+  For example, $\frac{49}{98}$ may be simplified to $\frac{4}{8}$ by removing a 9 from both the numerator and denominator.
+\item[Details:] 
+  Again, this is a na\"ive algorithm.
+  We represent a fraction as a \mono{cons} pair and search the cartesian product of $[10,~99]$ for pairs representing fractions less than 1 where removing a common digit from the string representations of the numerator and denominator gives a fraction with the same quotient (as computed by \mono{/} and \mono{equal?}).
+  To remove digits, we first build a list of digits shared between the numerator and denominator, then iterate over that.
+  Each non-library function is protected by a flat contract, including the \mono{str-member} and \mono{number->list} functions.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/33.rkt}
+
+\subsection*{PE-34~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Lines of code:] 30
+\item[Overview:]
+  Find the sum of all numbers that are equal to sum of the factorials of their digits.
+\item[Details:] 
+  Our algorithm is designed to be simple and computationally-heavy rather than clever.
+  For natural numbers less than the arbitrary ceiling of 9000000, we sum those numbers that are equal to the sum of the sum of the factorials of their digits.
+  We get digits by converting a number to a string with \mono{~a}, then iterate over the string's characters.
+  We compute factorial recursively with an accumulator.
+  The factorial function, like the functions to iterate over natural numbers and their digits, is protected by a flat contract.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/34.rkt}
+
+\subsection*{PE-46~\hrulefill}
+\begin{description}
+\item[Source:] Project Euler
+\item[Lines of code:] 40
+\item[Overview:]
+  Find the smallest odd composite number that cannot be written as the sum of a prime number and twice a square number.
+\item[Details:] 
+  For odd numbers $n$ between 9 and 9,999, the algorithm finds all prime numbers $p$ less than $n$ and checks if the difference $n - p$ is square.
+  Output is the \mono{for/or} disjunction over all valid combinations of odd composites and primes.
+  We pre-compute prime numbers below 10,000 via the Sieve of Eratosthenes and save them in a stream.
+  The functions to generate prime numbers and to try decomposing odd composites into a prime and a square are guarded by contracts.
+  All contracts are flat except for the contract on \mono{stream-filter}, the function used to get primes below our current $n$.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/project-euler/46.rkt}
+
+\subsection*{Zombie~\hrulefill}
+\begin{description}
+\item[Source:] Soft Contracts
+\item[Lines of code:] 313
+\item[Overview:]
+  Runs a pre-defined set of moves on a game of tag.
+\item[Details:]
+  Zombie is written in object-oriented style and uses a few higher-order contracts to guarantee function arguments have a certain object structure.
+  These are \mono{posn/c}, \mono{player/c}, \mono{zombie/c}, \mono{horde/c}, \mono{zombies/c}, and \mono{world/c}.
+  Thirteen of the games fifteen exports are contracted using only these higher-order contracts.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/soft-contract/zombie.rkt}
+
+\subsection*{Snake~\hrulefill}
+\begin{description}
+\item[Source:] Soft Contracts
+\item[Lines of code:] 312
+\item[Overview:]
+  Runs a pre-defined set of moves navigating a snake across a board of death traps and apples.
+\item[Details:] 
+  Snake is built from 9 different modules, each protected from external modules by contracts.
+  These are \mono{image}, \mono{data}, \mono{const}, \mono{collide}, \mono{cut-tail}, \mono{motion-help}, \mono{motion}, \mono{handlers}, and \mono{scenes}.
+  Functions within these modules are not contracted, nevertheless the high granularity of the module architecture leads to high contract overhead.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/soft-contract/snake.rkt}
+
+\subsection*{Tetris~\hrulefill}
+\begin{description}
+\item[Source:] Soft Contracts
+\item[Lines of code:] 433
+\item[Overview:]
+  Runs a pre-defined set of moves on a game of Tetris.
+\item[Details:] 
+  Like Snake, the Tetris game is built of a many small modules.
+  There are 11 all together: \mono{data}, \mono{consts}, \mono{block}, \mono{image}, \mono{list-fun}, \mono{bset}, \mono{elim}, \mono{tetras}, \mono{aux}, \mono{world}, and \mono{visual}.
+  These are again flat contracts, but having many small modules leads to a high contracts overhead.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/soft-contract/tetris.rkt}
+
+\subsection*{Matrix~\hrulefill}
+\begin{description}
+\item[Source:] Racket Documentation
+\item[Lines of code:] 8
+\item[Overview:]
+  Multiplies two randomly generated $20x20$ matrices together.
+\item[Details:]
+  Racket's matrix library is typed, while this multiplication is untyped.
+  Multiplying the two matrices generates typed/untyped boundary contracts.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/exp1/examples/matrix.rkt}
+
+\subsection*{Funky~Town~\hrulefill}
+\begin{description}
+\item[Source:] Soft Contracts
+\item[Lines of code:] 446
+\item[Overview:]
+  Generates music for Lipp's Funky Town:\\
+  \url{https://www.youtube.com/watch?v=xF77Y1JLScc}
+\item[Details:]
+  Funky~Town is a script that uses Racket's Synth library to generate a synthesized version of Funky~Town.
+  While the synth library is untyped, it uses Racket's math library, which is typed.
+  As with Matrix, Funky~Town generates contracts at the typed/untyped boundaries.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/exp1/examples/funky-town.rkt}
+
+\subsection*{Type~Boundary~\hrulefill}
+\begin{description}
+\item[Source:] Max New
+\item[Lines of code:] 53
+\item[Overview:]
+  Recursively calls typed and untyped code.
+\item[Details:]
+  Type~Boundary provides two modules, one typed and one untyped, that are mutually recursive
+  Like Matrix and Funky~Town, Type~Boundary will generate contracts at typed/untyped boundaries.
+\end{description}
+\url{https://github.com/LeifAndersen/experimental-methods-in-pl/blob/master/recursion/typed-boundary-bench.rkt}
