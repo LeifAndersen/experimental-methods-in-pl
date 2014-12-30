@@ -39,7 +39,9 @@ All these benchmarks heavily used contracts on module boundaries; from this, we 
 \input{fig-speedups}
 
 \fig{speedups} shows the percent difference in runtimes with the JIT enabled and the JIT disabled.
-The two charts displayed vertically in this figure measure the increases with and without contracts, respectively.
+Specifically, each point is the result of subtracting the JIT-enabled runtime from the JIT-disabled runtime, then dividing that difference by the JIT-disabled runtime.
+This shows what percentage of the JIT-disabled runtime was optimized away by the JIT.
+The two charts displayed vertically in this figure measure the speedups with and without contracts, respectively.
 Each chart gives the precise data for each of the 30 trials.
 
 \newpage
