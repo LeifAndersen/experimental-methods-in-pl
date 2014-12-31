@@ -97,4 +97,4 @@
     (plot-res 7 mat "Matrix" #f)
     (plot-res 8 funkytown "Funky Town" #f)
     (plot-res 9 boundary "Boundary" #f))
-   "results.png"))
+   "results.pdf"))
