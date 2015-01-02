@@ -16,11 +16,11 @@ We ran each of these benchmark programs on a modern desktop using Racket version
 To address potential outliers, we ran each benchmark 30 times on each configuration of Contracts and JIT.
 Note that we started a new Racket VM for each of the 30 runs; our experiment does not measure differences between startup and steady-state performance.
 
+\input{fig-runtimes}
+
 \subsection{Results}
 Figures~\ref{runtimes} and~\ref{speedups} document our results.
 We discuss these figures in turn.
-
-\input{fig-runtimes}
 
 \fig{runtimes} shows the aggregate runtime for each experiment on each of the 4 configurations, normalized to the ``Contracts + JIT'' running time.
 The bars additionally include their 95\% confidence interval.
@@ -35,7 +35,6 @@ This makes sense, as both do a lot of redundant computation; see the Appendix fo
 More interestingly, Snake, Tetris, Funkytown, and Boundary finish very quickly with contracts disabled and have similar slowdowns in all cases.
 All these benchmarks heavily used contracts on module boundaries; from this, we hypothesis that the JIT is significantly less effective at optimizing module-boundary contracts.
 
-\newpage
 \input{fig-speedups}
 
 \fig{speedups} shows the percent difference in runtimes with the JIT enabled and the JIT disabled.
@@ -43,8 +42,6 @@ Specifically, each point is the result of subtracting the JIT-enabled runtime fr
 This shows what percentage of the JIT-disabled runtime was optimized away by the JIT.
 The two charts displayed vertically in this figure measure the speedups with and without contracts, respectively.
 Each chart gives the precise data for each of the 30 trials.
-
-\newpage
 
 Most benchmarks consistently see better JIT performance after removing contracts.
 Thus we conclude that the contracts did hinder the JIT's ability to optimize (despite offering more ``redundant computation'' to potentially reduce).
