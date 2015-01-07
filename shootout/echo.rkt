@@ -24,7 +24,7 @@
           ))
 
 (define/contract (client)
-  (-> none/c)
+  (-> void?)
   (let-values ([(in out) (tcp-connect "127.0.0.1" PORT)]
                [(buffer) (make-string (string-length DATA))])
     (file-stream-buffer-mode out 'none)
@@ -43,11 +43,11 @@
           ))
 
 (define/contract (main args)
-  (-> (vectorof string?) none/c)
+  (-> (vectorof string?) void?)
   (set! n
         (if (= (vector-length args) 0)
             1
             (string->number (vector-ref  args 0))))
   (server))
 
-(time (begin (main (vector "200000")) (void)))
+(time (begin (main (vector "20000")) (void)))
