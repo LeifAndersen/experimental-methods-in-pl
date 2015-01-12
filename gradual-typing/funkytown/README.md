@@ -11,3 +11,6 @@ Sub-folders implement funkytown suite using different amounts of type informatio
 - `funk-flat-contracts/` modifies the untyped implementation to include `define/contract` on every procedure. All contracts are flat, like `vector?`.
 - `funk-mix-typed/` uses an optimization for `funk-master` due to `stamourv` -- the module `mix.rkt` is typed.
 - `funk-math-typed/` uses a fully-typed math library and fully untyped funkytown
+
+Companion spreadsheet online here:
+https://docs.google.com/spreadsheets/d/1g-CtozvAZ5zKMNxBJVhfS-i4VcJwREr8XMyFIuRMt_Y/edit?usp=sharing
